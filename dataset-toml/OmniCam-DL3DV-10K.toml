@@ -1,0 +1,12 @@
+[general]
+caption_extension = ".txt"
+batch_size = 1
+enable_bucket = true
+bucket_no_upscale = false
+
+[[datasets]]
+video_jsonl_file = "/home/i-yangxiaoda/shared-point/RealCam-Vid/DL3DV-10K.jsonl"
+target_frames = [129]
+frame_extraction = "uniform"
+cache_directory = "/home/i-yangxiaoda/shared-point/RealCam-Vid/cache/DL3DV-10K"
+resolution = [960, 540]

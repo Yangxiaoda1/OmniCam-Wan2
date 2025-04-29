@@ -1,0 +1,12 @@
+[general]
+caption_extension = ".txt"
+batch_size = 1
+enable_bucket = true
+bucket_no_upscale = false
+
+[[datasets]]
+video_jsonl_file = "/home/i-yangxiaoda/shared-point/RealCam-Vid/RealEstate10K.jsonl"
+target_frames = [77]
+frame_extraction = "uniform"
+cache_directory = "/home/i-yangxiaoda/shared-point/RealCam-Vid/cache/RealEstate10K"
+resolution = [1920, 1088]

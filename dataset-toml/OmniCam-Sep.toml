@@ -1,0 +1,19 @@
+[general]
+caption_extension = ".txt"
+batch_size = 1
+enable_bucket = true
+bucket_no_upscale = false
+
+[[datasets]]
+video_jsonl_file = "/data/OmniCam-Sep2/metadata.jsonl"
+target_frames = [21]
+frame_extraction = "uniform"
+cache_directory = "/data/OmniCam-Sep2/cache"
+resolution = [1024, 576]
+
+[[datasets]]
+video_jsonl_file = "/data/OmniCam-Sep3/metadata.jsonl"
+target_frames = [21]
+frame_extraction = "uniform"
+cache_directory = "/data/OmniCam-Sep3/cache"
+resolution = [1024, 576]
