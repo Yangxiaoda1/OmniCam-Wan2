@@ -124,3 +124,67 @@ python wan_generate_video.py --task i2v-14B --video_size 936 504 --video_length 
 --attn_mode torch --image_path /data/musubi-tuner/inference/cake.png
 ```
 
+[Optional] 下面的内容有助于快速了解代码
+
+训练的时候是在这里加载cache数据的：
+/data/midjourney/yangxiaoda/musubi-tuner/dataset/image_video_dataset.py 1431
+text_encoder_output_cache_file = os.path.join(self.cache_directory, f"{item_key}_{self.architecture}_te.safetensors")
+
+交叉注意力：
+/data/midjourney/yangxiaoda/musubi-tuner/wan/modules/model.py 274
+WanI2VCrossAttention
+
+调用WanModel的位置：
+/data/midjourney/yangxiaoda/musubi-tuner/wan_train_network.py 376
+
+batch是怎么组织起来的
+/data/midjourney/yangxiaoda/musubi-tuner/dataset/image_video_dataset.py 473
+__getitem__
+
+时间embeding注入：
+/data/midjourney/yangxiaoda/musubi-tuner/wan/modules/model.py 382
+_forward
+
+制作cache的时候，把camera 6dof注入的地方：
+/data/midjourney/yangxiaoda/musubi-tuner/wan_cache_camera_encoder_outputs.py
+encode_and_save_batch
+
+vae编码的地方（F是怎么形成的）：
+调用处：/data/midjourney/yangxiaoda/musubi-tuner/wan_cache_latents.py 43
+latent = vae.encode(contents)
+定义处：/data/midjourney/yangxiaoda/musubi-tuner/wan/modules/vae.py 481
+
+cache的camera怎么生成的
+搜索Text2VideoSet
+
+推理的时候在哪里编码text wan_generate_video.py 660
+context = text_encoder([args.prompt], device)
+推理的时候，需要输入cameradict
+
+在哪里保存ckpt hv_train.py 1125
+ckpt_name = train_utils.get_step_ckpt_name(args.output_name, global_step)
+
+在哪里调用的call_dit并计算的loss hv_train_network.py 1856
+model_pred, target = self.call_dit(
+
+如何控制微调哪个结构，参考代码：hv_train.py 830
+for name, param in transformer.named_parameters():
+            for trainable_module_name in args.trainable_modules:
+                if trainable_module_name in name:
+                    param.requires_grad = True
+                    break
+自己的代码在哪里指定trainable：wan_train_network.py 322
+load_transformer
+
+原模型是在哪里设置整体网络冻结的：hv_train_network.py 1436
+transformer.eval()
+transformer.requires_grad_(False)
+
+权重初始化：model.py 1336
+block.cross_attn.myadapter.apply(init_weights)
+
+模型加载Dit load数据流
+hv_train_network.py 调用load_transformer (打印Load DiT)->wan_train_network.py定义load_transformer调用load_wan_model->model.py 定义load_wan_model (打印Load DiT)
+
+保存全局ckpt hv_train_network.py 1879
+model_pred, target = self.call_dit
