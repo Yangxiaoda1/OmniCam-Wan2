@@ -69,7 +69,8 @@ Follow the README.md in tools to finish the data preparation. The final structur
 
     |-OmniCam-Sep-1-OpenSoraPlan
         |-cache
-        |-object_stay_camera_move
+        |-safetensors
+        |-videos
         |-tools
         metadata.jsonl
 
