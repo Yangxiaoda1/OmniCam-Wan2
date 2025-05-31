@@ -34,7 +34,7 @@ Optional dependencies for additional features:
 - `tensorboard`: Used for logging training progress
 
 ```bash
-pip install ascii-magic matplotlib tensorboard
+pip install ascii-magic matplotlib tensorboard scipy
 ```
 
 ## Download the model
