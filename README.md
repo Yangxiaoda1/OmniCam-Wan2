@@ -1,4 +1,4 @@
-# OmniCam-Wan
+# Joint
 
 ## Clone
 
