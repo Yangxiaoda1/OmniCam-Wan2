@@ -190,4 +190,4 @@ hv_train_network.py 调用load_transformer (打印Load DiT)->wan_train_network.p
 保存全局ckpt hv_train_network.py 1879
 model_pred, target = self.call_dit
 
-注意：数据中存在一些不准确的描述，比如Uni4的8bd5cb1a874d6fb，官方标签中包括“女人”等描述，这会误导模型，需要清洗
+[注意] 数据中存在一些不准确的描述，比如Uni4的8bd5cb1a874d6fb，官方标签中包括“女人”等描述，这会误导模型，需要清洗
